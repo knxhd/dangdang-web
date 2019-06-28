@@ -15,9 +15,10 @@
         </div>
         <div class="remember">
           <el-checkbox v-model="checked">记住我</el-checkbox>
-          <span v-show="tipShow">用户名或密码不能为空，请重新输入</span>
+          <span v-show="tipShow" style="color: #f54778">用户名或密码不能为空，请重新输入</span>
         </div>
-        <el-button native-type="submit" type="primary" round size="medium" class="login-button">登录</el-button>
+        <el-button native-type="submit" @click="submit" type="primary" round size="medium" class="login-button">登录
+        </el-button>
       </div>
     </div>
   </div>
@@ -33,6 +34,22 @@
         username: '',
         password: '',
       };
+    },
+    mounted: function() {
+      this.$message('测试一下mounted 钩子');
+    },
+    methods: {
+      async submit() {
+        if (!this.username || !this.password) {
+          this.tipShow = true;
+          return;
+        }
+                this.$http.post('/loginController/login',{
+                  userName:this.username,
+                  passWord:this.passWord,
+                  rememberMe:this.rememberMe
+                })
+      },
     },
   };
 </script>
@@ -87,9 +104,11 @@
           border-bottom: 1px solid #e1e2e3;
           display: flex;
           align-items: center;
+
           i {
             margin-right: 20px
           }
+
           input {
             border: none;
             color: #303239;
