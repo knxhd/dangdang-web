@@ -35,19 +35,21 @@
         password: '',
       };
     },
-    mounted: function() {
-      this.$message('测试一下mounted 钩子');
-    },
     methods: {
       async submit() {
         if (!this.username || !this.password) {
           this.tipShow = true;
           return;
         }
-                this.$http.post('/loginController/login',{
+             await   this.$http.post('/loginController/login',{
                   userName:this.username,
-                  passWord:this.passWord,
+                  passWord:this.password,
                   rememberMe:this.rememberMe
+                }).then(res=>{
+                       if(res.data.status===0){
+                           this.$message(res.data.message);
+                           this.$router.push("/index");
+                       }
                 })
       },
     },
