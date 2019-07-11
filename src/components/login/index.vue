@@ -7,11 +7,11 @@
       <div class="body">
         <div class="body-input">
           <i class="el-icon-user-solid"></i>
-          <input placeholder="请输入用户名" v-model="username" type="text"/>
+          <input placeholder="请输入用户名" v-model="username" type="text" @keydown.enter="submit"/>
         </div>
         <div class="body-input">
           <i class="el-icon-s-goods"></i>
-          <input placeholder="请输入密码" v-model="password" type="password"/>
+          <input placeholder="请输入密码" v-model="password" type="password" @keydown.enter="submit"/>
         </div>
         <div class="remember">
           <el-checkbox v-model="checked">记住我</el-checkbox>

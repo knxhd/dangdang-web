@@ -6,6 +6,7 @@ import router from './router'
 import ElementUI from  'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
+import  qs from 'qs'
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
@@ -16,6 +17,15 @@ Vue.prototype.$http=axios.create({
   headers: {
     'Content-type': 'application/x-www-form-urlencoded'
   }
+});
+// http请求request发送拦截器 如果是post方法
+Vue.prototype.$http.interceptors.request.use(config => {
+  if (config.method === 'post') {
+    config.data = qs.stringify(config.data, {
+      arrayFormat: 'brackets'
+    })
+  }
+  return config;
 });
 /* eslint-disable no-new */
 new Vue({
